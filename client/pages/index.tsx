@@ -1,31 +1,21 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import Typography from '../components/Typography/Typography';
+import Container from '../components/Container/Container';
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <Container
+      component="main"
+      sx={{ marginTop: '10vh' }}
+    >
       <Typography
         variant="h5"
         component="h1"
         align="center"
       >
-        Hello world dashboard.
+        Dashboard
       </Typography>
-      <Typography
-        variant="body2"
-        component="h2"
-        align="center"
-      >
-        <Link href="/login">
-          <a>Log in</a>
-        </Link>
-        <br />
-        <Link href="/sandbox">
-          <a>Sandbox</a>
-        </Link>
-      </Typography>
-    </div>
+    </Container>
   );
 };
 

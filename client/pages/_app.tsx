@@ -5,6 +5,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import theme from '../theme/theme';
+import AppBar from '../components/AppBar/AppBar';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -24,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         />
       </Head>
+      <AppBar />
       <Component {...pageProps} />
     </ThemeProvider>
   );
