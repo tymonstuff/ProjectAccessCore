@@ -32,4 +32,10 @@ export default interface ButtonProps {
 
   /** The system prop that allows defining system overrides as well as additional CSS styles. */
   sx?: object;
+
+  /** Function that determines what happens when the button is clicked */
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+
+  /** The URL to link to when the button is clicked. */
+  href?: string;
 }

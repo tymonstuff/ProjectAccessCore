@@ -11,6 +11,8 @@ export default function Button({
   disabled,
   type,
   sx,
+  onClick,
+  href,
 }: ButtonProps) {
   return (
     <MUIButton
@@ -20,6 +22,8 @@ export default function Button({
       disabled={disabled}
       type={type}
       sx={sx}
+      onClick={onClick}
+      href={href}
     >
       {label}
     </MUIButton>
