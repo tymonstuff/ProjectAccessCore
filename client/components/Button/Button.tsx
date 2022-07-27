@@ -4,7 +4,6 @@ import MUIButton from '@mui/material/Button';
 import ButtonProps from './Button.types';
 
 export default function Button({
-  label,
   color,
   variant,
   fullWidth,
@@ -13,6 +12,7 @@ export default function Button({
   sx,
   onClick,
   href,
+  children,
 }: ButtonProps) {
   return (
     <MUIButton
@@ -25,7 +25,7 @@ export default function Button({
       onClick={onClick}
       href={href}
     >
-      {label}
+      {children}
     </MUIButton>
   );
 }

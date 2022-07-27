@@ -12,9 +12,6 @@ type buttonVariantType = 'contained' | 'outlined' | 'text';
 type buttonTypeType = 'button' | 'submit' | 'reset';
 
 export default interface ButtonProps {
-  /** The button text */
-  label: string;
-
   /** The button colour */
   color?: buttonColorType;
 
@@ -38,4 +35,7 @@ export default interface ButtonProps {
 
   /** The URL to link to when the button is clicked. */
   href?: string;
+
+  /** The content of the component, e.g its text label */
+  children?: React.ReactNode;
 }
