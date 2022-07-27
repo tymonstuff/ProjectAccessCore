@@ -8,7 +8,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 This project has been configered to run with yarn.
 
-To run the development server:
+After cloning the repo, first run:
+
+```bash
+yarn install
+```
+
+Then, to run the development server:
 
 ```bash
 yarn dev
