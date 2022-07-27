@@ -25,7 +25,7 @@ export default function LoginForm() {
       component="main"
       maxWidth="xs"
       sx={{
-        marginTop: '20vh',
+        marginTop: '10vh',
       }}
     >
       <Box
