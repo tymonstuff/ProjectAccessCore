@@ -34,8 +34,8 @@ export default function BasicCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button label="Learn More"></Button>
-        <Button label="Contact Me"></Button>
+        <Button>Learn More</Button>
+        <Button>Contact Me</Button>
       </CardActions>
     </Card>
   );

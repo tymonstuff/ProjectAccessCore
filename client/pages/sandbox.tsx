@@ -176,11 +176,12 @@ const Sandbox: NextPage = () => {
               xs={6}
             >
               <Button
-                label="Sign In"
                 variant="contained"
                 color="primary"
                 fullWidth
-              ></Button>
+              >
+                Sign In
+              </Button>
             </Grid>
             <Grid
               container

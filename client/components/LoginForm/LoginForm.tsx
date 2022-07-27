@@ -79,10 +79,11 @@ export default function LoginForm() {
             fullWidth
             color="primary"
             variant="contained"
-            label="Sign In"
             type="submit"
             sx={{ mb: 1, mt: 1 }}
-          />
+          >
+            Sign In
+          </Button>
           <Grid container>
             <Grid
               item
