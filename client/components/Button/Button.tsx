@@ -13,6 +13,8 @@ export default function Button({
   onClick,
   href,
   children,
+  component,
+  noLinkStyle,
 }: ButtonProps) {
   return (
     <MUIButton
@@ -24,6 +26,8 @@ export default function Button({
       sx={sx}
       onClick={onClick}
       href={href}
+      component={component}
+      noLinkStyle={noLinkStyle}
     >
       {children}
     </MUIButton>
