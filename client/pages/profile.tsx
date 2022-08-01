@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Secured from '../components/Secured/Secured';
 import ProfileCard from '../components/ProfileCard/ProfileCard';
 
 const Profile: NextPage = () => {
@@ -9,9 +10,9 @@ const Profile: NextPage = () => {
   };
 
   return (
-    <>
+    <Secured>
       <ProfileCard {...DUMMY_DATA}></ProfileCard>
-    </>
+    </Secured>
   );
 };
 

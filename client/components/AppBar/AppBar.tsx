@@ -5,7 +5,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '../Box/Box';
 import Button from '../Button/Button';
 
+import { signOut, redirectToAuth } from "supertokens-auth-react/recipe/emailpassword";
+
 export default function BasicAppBar() {
+
+  async function handleLogOut() {
+    await signOut();
+    redirectToAuth();
+  }
+
   return (
     <Box
       component="span"
@@ -26,10 +34,10 @@ export default function BasicAppBar() {
             Profile
           </Button>
           <Button
-            href="/login"
+            onClick={handleLogOut}
             color="inherit"
           >
-            Log In
+            Log Out
           </Button>
         </Toolbar>
       </AppBar>

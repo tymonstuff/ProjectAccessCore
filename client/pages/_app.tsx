@@ -7,7 +7,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import theme from '../theme/theme';
 import AppBar from '../components/AppBar/AppBar';
 
-import '../styles/globals.css'
 import SuperTokensReact, { SuperTokensWrapper } from 'supertokens-auth-react'
 import { frontendConfig } from '../config/frontendConfig'
 
