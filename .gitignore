@@ -108,3 +108,6 @@ dist
 
 # Postgres
 postgres/data
+
+# Gabs
+client2/
