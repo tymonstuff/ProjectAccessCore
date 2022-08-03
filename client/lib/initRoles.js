@@ -13,16 +13,19 @@ import UserRoles from "supertokens-node/recipe/userroles";
 // Unmatch:  unmatch a mentor from a program
 // Delete:   delete accounts or program instances
 
-async function initRoles() {
-  menteePs = ["MenteeView"]
-  mentorPs = ["MentorView"]
-  adminPs  = ["AdminView", "Approve", "Suggest", "Unmatch", "ReadAll", "Delete"]
-  ownerPs  = adminPs + ["WriteAll", "Assign"]
+export default async function initRoles() {
+  const menteePs = ["MenteeView"]
+  const mentorPs = ["MentorView"]
+  const adminPs  = ["AdminView", "Approve", "Suggest", "Unmatch", "ReadAll", "Delete"]
+  const ownerPs  = adminPs.concat(["WriteAll", "Assign"])
 
-  createRole("mentee", menteePs)
-  createRole("mentor", mentorPs)
-  createRole("admin",  adminPs)
-  createRole("owner",  ownerPs)
+  await createRole("mentee", menteePs)
+  await createRole("mentor", mentorPs)
+  await createRole("admin",  adminPs)
+  await createRole("owner",  ownerPs)
+  
+  // For testing
+  assignRole("97829860-2de9-473d-a45a-787a8cd6bfa5","owner")
 }
 
 async function createRole(role, permissionList) {
@@ -33,4 +36,17 @@ async function createRole(role, permissionList) {
     else {
       console.log("Role already exists: "+role)
     }
+}
+
+async function assignRole(userId, role) {
+    const response = await UserRoles.addRoleToUser(userId, role);
+    if (response.status === "UNKNOWN_ROLE_ERROR") {
+        console.log("Role does not exist: "+role)
+        return;
+    }
+    if (response.didUserAlreadyHaveRole === true) {
+        console.log("User "+userId+" already has this role: "+role)
+        return;
+    }
+    console.log("Role assigned to "+userId+": "+role)
 }

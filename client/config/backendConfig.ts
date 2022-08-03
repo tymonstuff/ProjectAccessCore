@@ -13,8 +13,77 @@ export const backendConfig = (): TypeInput => {
     },
     appInfo,
     recipeList: [
-      EmailPasswordNode.init(),
-      SessionNode.init(),
+      EmailPasswordNode.init({
+        override: {
+          apis: (originalImplementation) => {
+            return {
+              ...originalImplementation,
+              signUpPOST: async function (input) {
+                if (originalImplementation.signUpPOST === undefined) {
+                  throw Error("Should never come here");
+                }
+                // Call the original implementation of signUpPOST.
+                let response = await originalImplementation.signUpPOST(input);
+
+                // Post sign up response, we check if it was successful
+                if (response.status === "OK") {
+                  let { id, email } = response.user;
+                  
+                  // Input form fields values that the user used while signing up
+                  let formFields = input.formFields;
+
+                  // TODO: post sign up logic
+
+                }
+                return response;
+              }
+            }
+          }
+        }
+      }),
+      SessionNode.init({
+        override: {
+          functions: (originalImplementation) => {
+            return {
+              ...originalImplementation,
+              createNewSession: async function (input) {
+                const userId = input.userId;
+                const responseR = await UserRoles.getRolesForUser(userId);
+                const roles = responseR.roles
+
+                let permissions = []
+                await Promise.all(roles.map(async (r) => {
+                  const responseP = await UserRoles.getPermissionsForRole(r);
+                  const newPermissions = responseP.permissions;
+
+                  if(permissions.length){
+                    for(const p of newPermissions) {
+                      if(!permissions.includes(p)){
+                        //console.log("pushing "+JSON.stringify(p)+" to permissions")
+                        permissions.push(p)
+                      }
+                    }
+                  }
+                  else{
+                    permissions = newPermissions
+                  }
+                  console.log("permissions2: "+JSON.stringify(permissions))
+                }))
+
+                console.log("permissions at the end: "+JSON.stringify(permissions))
+
+                input.accessTokenPayload = {
+                  ...input.accessTokenPayload,
+                  roles,
+                  permissions
+                };
+
+                return originalImplementation.createNewSession(input);
+              },
+            };
+          },
+        },
+      }),
       UserRoles.init()
     ],
     isInServerlessEnv: true,
