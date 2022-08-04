@@ -4,6 +4,8 @@ import UserRoles from "supertokens-node/recipe/userroles";
 import { appInfo } from './appInfo'
 import { TypeInput } from "supertokens-node/types";
 
+import { getCurrentPayloadInfo } from '../lib/backendRoles'
+
 export const backendConfig = (): TypeInput => {
   return {
     framework: "express",
@@ -48,34 +50,12 @@ export const backendConfig = (): TypeInput => {
               ...originalImplementation,
               createNewSession: async function (input) {
                 const userId = input.userId;
-                const responseR = await UserRoles.getRolesForUser(userId);
-                const roles = responseR.roles
-
-                let permissions = []
-                await Promise.all(roles.map(async (r) => {
-                  const responseP = await UserRoles.getPermissionsForRole(r);
-                  const newPermissions = responseP.permissions;
-
-                  if(permissions.length){
-                    for(const p of newPermissions) {
-                      if(!permissions.includes(p)){
-                        //console.log("pushing "+JSON.stringify(p)+" to permissions")
-                        permissions.push(p)
-                      }
-                    }
-                  }
-                  else{
-                    permissions = newPermissions
-                  }
-                  console.log("permissions2: "+JSON.stringify(permissions))
-                }))
-
-                console.log("permissions at the end: "+JSON.stringify(permissions))
+                const customPayloadInfo = await getCurrentPayloadInfo(userId)
+                console.log(JSON.stringify(customPayloadInfo))
 
                 input.accessTokenPayload = {
                   ...input.accessTokenPayload,
-                  roles,
-                  permissions
+                  ...customPayloadInfo
                 };
 
                 return originalImplementation.createNewSession(input);
