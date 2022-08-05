@@ -24,7 +24,6 @@ export default async function updateSessionPayload(req: SessionRequest, res: any
 
   // update payload
   let currAccessTokenPayload = req.session!.getAccessTokenPayload();
-  console.log("NEW PAYLOAD: "+JSON.stringify({ ...currAccessTokenPayload, ...customPayloadInfo }))
   await req.session!.updateAccessTokenPayload(
     { ...currAccessTokenPayload, ...customPayloadInfo }
   );

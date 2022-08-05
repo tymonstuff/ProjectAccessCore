@@ -51,7 +51,6 @@ export const backendConfig = (): TypeInput => {
               createNewSession: async function (input) {
                 const userId = input.userId;
                 const customPayloadInfo = await getCurrentPayloadInfo(userId)
-                console.log(JSON.stringify(customPayloadInfo))
 
                 input.accessTokenPayload = {
                   ...input.accessTokenPayload,

@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 import supertokens from 'supertokens-node'
 import { backendConfig } from '../../../config/backendConfig'
 
-console.log("BACKEND INIT INITIATED")
 supertokens.init(backendConfig())
 
 export default async function superTokens(

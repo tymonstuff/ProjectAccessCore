@@ -25,7 +25,6 @@ export default function BasicAppBar() {
             href="/"
             color="inherit"
             component={Link}
-            noLinkStyle
           >
             Home
           </Button>
@@ -33,15 +32,12 @@ export default function BasicAppBar() {
             href="/profile"
             color="inherit"
             component={Link}
-            noLinkStyle
           >
             Profile
           </Button>
           <Button
-            onClick={handleLogOut}
             color="inherit"
-            component={Link}
-            noLinkStyle
+            onClick={handleLogOut}
           >
             Log Out
           </Button>
