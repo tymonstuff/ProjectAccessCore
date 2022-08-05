@@ -38,4 +38,10 @@ export default interface ButtonProps {
 
   /** The content of the component, e.g its text label */
   children?: React.ReactNode;
+
+  /** The component used for the root node. Should be either a string to use a HTML element or a component. Using relaxed type definition here to allow for {Link} - use sensibly. */
+  component?: any;
+
+  /** Relates to styling of Link component from Next.js  */
+  noLinkStyle?: boolean;
 }
