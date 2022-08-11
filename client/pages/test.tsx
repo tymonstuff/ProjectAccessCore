@@ -6,7 +6,7 @@ import { getSessionPayload, updateSessionPayload } from '../lib/frontendRoles';
 const Test: NextPage = () => {
 
   async function handleGetRoles() {
-    alert(await getSessionPayload())
+    alert(JSON.stringify(await getSessionPayload()))
   }
 
   async function handleRefreshRoles() {

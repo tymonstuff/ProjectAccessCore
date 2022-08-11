@@ -12,8 +12,8 @@ export default async function handler(req, res) {
   await deleteAllRoles()
   await createRoles()
 
-  await assignRole('97829860-2de9-473d-a45a-787a8cd6bfa5', 'mentee')
-  await assignRole('97829860-2de9-473d-a45a-787a8cd6bfa5', 'mentor')
+  await assignRole('97829860-2de9-473d-a45a-787a8cd6bfa5', 'admin') // gabs
+  await assignRole('b4b1022b-6898-41fd-97a2-74f745a02bfc', 'owner') // anna
 
   res.status(200).json({ status: 'done' })
 }
