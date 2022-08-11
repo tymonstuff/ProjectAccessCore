@@ -1,10 +1,14 @@
 import EmailPasswordNode from 'supertokens-node/recipe/emailpassword'
 import SessionNode from 'supertokens-node/recipe/session'
-import UserRoles from "supertokens-node/recipe/userroles";
+import UserRoles from 'supertokens-node/recipe/userroles';
 import { appInfo } from './appInfo'
-import { TypeInput } from "supertokens-node/types";
+import { TypeInput } from 'supertokens-node/types';
+
+import client from '@sendgrid/mail';
 
 import { getCurrentPayloadInfo } from '../lib/backendRoles'
+
+client.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const backendConfig = (): TypeInput => {
   return {
@@ -16,6 +20,49 @@ export const backendConfig = (): TypeInput => {
     appInfo,
     recipeList: [
       EmailPasswordNode.init({
+        emailDelivery: {
+          override: (originalImplementation) => {
+            return {
+              ...originalImplementation,
+              sendEmail: async function (input) {
+                if (input.type === "PASSWORD_RESET") {
+                  let { user, passwordResetLink } = input;
+                  let { email, id, timeJoined } = user;
+
+                  console.log("EMAIL RESET FOR user: "+JSON.stringify(input))
+
+                  const message = {
+                    personalizations: [
+                      {
+                        to: [
+                          {
+                            email: email
+                          }
+                        ]
+                      }
+                    ],
+                    from: {
+                      email: '//////// TODO: get email',
+                      name: 'Project Access'
+                    },
+                    subject: 'Password Recovery for Your Account',
+                    content: [
+                      {
+                        type: 'text/html',
+                        value: '//////// TODO: get html'
+                      }
+                    ],
+                    ipPoolName: 'transactional email',
+                  };
+
+                  //client.send(message)
+                  //  .then(() => console.log('Password reset sent successfully'))
+                  //  .catch(error => { console.error(error); });
+                }
+              }
+            }
+          }
+        },
         override: {
           apis: (originalImplementation) => {
             return {
@@ -34,8 +81,7 @@ export const backendConfig = (): TypeInput => {
                   // Input form fields values that the user used while signing up
                   let formFields = input.formFields;
 
-                  // TODO: post sign up logic
-
+                  //////// TODO: post sign up logic to send out google form
                 }
                 return response;
               }
