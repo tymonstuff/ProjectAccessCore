@@ -3,7 +3,6 @@ import Secured from '../components/Secured/Secured';
 import ProfileCard from '../components/ProfileCard/ProfileCard';
 import UserContext from '../store/user-context';
 import { useContext } from 'react';
-import AppBar from '../components/AppBar/AppBar';
 
 const Profile: NextPage = () => {
   const userCtx = useContext(UserContext);
@@ -17,7 +16,6 @@ const Profile: NextPage = () => {
 
   return (
     <Secured>
-      <AppBar />
       <ProfileCard {...DUMMY_DATA}></ProfileCard>
     </Secured>
   );

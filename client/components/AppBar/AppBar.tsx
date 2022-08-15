@@ -8,6 +8,8 @@ import Button from '../Button/Button';
 import { useContext, useState, useEffect } from 'react';
 import UserContext from '../../store/user-context';
 
+import { useSessionContext } from 'supertokens-auth-react/recipe/session';
+
 import {
   signOut,
   redirectToAuth,
@@ -20,17 +22,31 @@ export default function BasicAppBar() {
     redirectToAuth();
   }
 
-  const userCtx = useContext(UserContext);
+  const session = useSessionContext();
 
-  const [isMentee, setIsMentee] = useState(false);
-  const [isMentor, setIsMentor] = useState(false);
+  // const userCtx = useContext(UserContext);
 
-  useEffect(() => {
-    if (userCtx.roles.length > 0) {
-      setIsMentee(userCtx.roles.includes('mentee'));
-      setIsMentor(userCtx.roles.includes('mentor'));
-    }
-  }, [isMentee, isMentor, userCtx.roles]);
+  // const [isMentee, setIsMentee] = useState(false);
+  // const [isMentor, setIsMentor] = useState(false);
+  console.log("AppBar RELOAD!")
+  console.log(JSON.stringify(session))
+
+  //useEffect(() => {
+  // if (session.doesSessionExist && !session.loading) {
+  //   const permissions : string[] = session.accessTokenPayload.permissions;
+  //   setIsMentee(permissions.includes('MenteeView'));
+  //   setIsMentor(permissions.includes('MentorView'));
+  // }
+  //}, [/*isMentee, isMentor, */session]);
+  
+  const isLoggedIn = session.doesSessionExist
+  let hasMenteeView;
+  let hasMentorView;
+  if (isLoggedIn && !session.loading) {
+    const permissions : string[] = session.accessTokenPayload.permissions;
+    hasMenteeView = permissions.includes('MenteeView')
+    hasMentorView = permissions.includes('MentorView')
+  }
 
   const MenteeButton = () => {
     return (
@@ -89,12 +105,14 @@ export default function BasicAppBar() {
     >
       <AppBar position="static">
         <Toolbar>
-          <>
-            {isMentor ? <MentorButton /> : <></>}
-            {isMentee ? <MenteeButton /> : <></>}
+          {isLoggedIn ? <>
+            {hasMentorView ? <MentorButton /> : <></>}
+            {hasMenteeView ? <MenteeButton /> : <></>}
             <ProfileButton />
             <LogoutButton />
-          </>
+          </> :
+          <></>
+        }
         </Toolbar>
       </AppBar>
     </Box>
