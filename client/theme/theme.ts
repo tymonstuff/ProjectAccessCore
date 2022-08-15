@@ -6,14 +6,24 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#3b8cd9',
+      main: '#3B8CD9', // blue
     },
     secondary: {
-      main: '#ffa51f',
+      main: '#FDA929', // yellow
+    },
+    info: {
+      main: '#2A3038', // grey
+    },
+    error: {
+      main: '#EF4200', // pink
+    },
+    success: {
+      main: '#00B497', // green
     },
   },
   spacing: 8,
   typography: {
+    //TODO change font family to Corbel - need to ask about licensing
     fontFamily: `'Lato', sans-serif`,
   },
   components: {
