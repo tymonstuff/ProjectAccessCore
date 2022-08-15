@@ -13,9 +13,15 @@ interface ProfileCardProps {
   name: string;
   email: string;
   phone: string;
+  roles: (string | null)[];
 }
 
-export default function ProfileCard({ name, email, phone }: ProfileCardProps) {
+export default function ProfileCard({
+  name,
+  email,
+  phone,
+  roles,
+}: ProfileCardProps) {
   return (
     <>
       <Container
@@ -117,6 +123,28 @@ export default function ProfileCard({ name, email, phone }: ProfileCardProps) {
                   component="p"
                 >
                   {phone}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+              >
+                <Typography
+                  variant="body1"
+                  component="p"
+                >
+                  Roles:
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={9}
+              >
+                <Typography
+                  variant="body1"
+                  component="p"
+                >
+                  {roles}
                 </Typography>
               </Grid>
             </Grid>

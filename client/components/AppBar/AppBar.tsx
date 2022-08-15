@@ -5,14 +5,82 @@ import Link from '../Link/Link';
 import Box from '../Box/Box';
 import Button from '../Button/Button';
 
-import { signOut, redirectToAuth } from "supertokens-auth-react/recipe/emailpassword";
+import { useContext, useState, useEffect } from 'react';
+import UserContext from '../../store/user-context';
+
+import {
+  signOut,
+  redirectToAuth,
+} from 'supertokens-auth-react/recipe/emailpassword';
+import { Co2Sharp } from '@mui/icons-material';
 
 export default function BasicAppBar() {
-
   async function handleLogOut() {
     await signOut();
     redirectToAuth();
   }
+
+  const userCtx = useContext(UserContext);
+
+  const [isMentee, setIsMentee] = useState(false);
+  const [isMentor, setIsMentor] = useState(false);
+
+  useEffect(() => {
+    if (userCtx.roles.length > 0) {
+      setIsMentee(userCtx.roles.includes('mentee'));
+      setIsMentor(userCtx.roles.includes('mentor'));
+    }
+  }, [isMentee, isMentor, userCtx.roles]);
+
+  const MenteeButton = () => {
+    return (
+      <Button
+        href="/mentee"
+        color="inherit"
+        component={Link}
+      >
+        Mentee Space
+      </Button>
+    );
+  };
+
+  const MentorButton = () => {
+    return (
+      <Button
+        href="/mentor"
+        color="inherit"
+        component={Link}
+      >
+        Mentor Space
+      </Button>
+    );
+  };
+
+  const ProfileButton = () => {
+    return (
+      <Button
+        href="/profile"
+        color="inherit"
+        component={Link}
+      >
+        Profile
+      </Button>
+    );
+  };
+
+  const LogoutButton = () => {
+    return (
+      <Button
+        color="inherit"
+        onClick={handleLogOut}
+      >
+        Log Out
+      </Button>
+    );
+  };
+
+  // console.log(userCtx.roles);
+  // console.log(userCtx.permissions);
 
   return (
     <Box
@@ -21,26 +89,12 @@ export default function BasicAppBar() {
     >
       <AppBar position="static">
         <Toolbar>
-          <Button
-            href="/"
-            color="inherit"
-            component={Link}
-          >
-            Home
-          </Button>
-          <Button
-            href="/profile"
-            color="inherit"
-            component={Link}
-          >
-            Profile
-          </Button>
-          <Button
-            color="inherit"
-            onClick={handleLogOut}
-          >
-            Log Out
-          </Button>
+          <>
+            {isMentor ? <MentorButton /> : <></>}
+            {isMentee ? <MenteeButton /> : <></>}
+            <ProfileButton />
+            <LogoutButton />
+          </>
         </Toolbar>
       </AppBar>
     </Box>
