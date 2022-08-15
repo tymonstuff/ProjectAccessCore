@@ -2,19 +2,20 @@ import type { NextPage } from 'next';
 import Secured from '../components/Secured/Secured';
 import Button from '../components/Button/Button';
 import { getSessionPayload, updateSessionPayload } from '../lib/frontendRoles';
+import AppBar from '../components/AppBar/AppBar';
 
 const Test: NextPage = () => {
-
   async function handleGetRoles() {
-    alert(JSON.stringify(await getSessionPayload()))
+    alert(JSON.stringify(await getSessionPayload()));
   }
 
   async function handleRefreshRoles() {
-    await updateSessionPayload()
+    await updateSessionPayload();
   }
 
   return (
     <Secured>
+      <AppBar />
       <Button
         onClick={handleGetRoles}
         color="inherit"

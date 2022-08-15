@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import EmailPassword from 'supertokens-auth-react/recipe/emailpassword'
+import EmailPassword from 'supertokens-auth-react/recipe/emailpassword';
 
 interface SecuredProps {
   children: React.ReactNode;
@@ -12,4 +12,4 @@ export default function Secured({ children }: SecuredProps) {
       {children}
     </EmailPassword.EmailPasswordAuth>
   );
-} 
+}
