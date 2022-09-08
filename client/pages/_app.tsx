@@ -16,8 +16,7 @@ if (typeof window !== 'undefined') {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-
-  console.log("_app RELOAD!");
+  console.log('_app RELOAD!');
 
   return (
     <SuperTokensWrapper>

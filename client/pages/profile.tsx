@@ -1,17 +1,21 @@
 import type { NextPage } from 'next';
 import Secured from '../components/Secured/Secured';
 import ProfileCard from '../components/ProfileCard/ProfileCard';
-import UserContext from '../store/user-context';
-import { useContext } from 'react';
+import { useSessionContext } from 'supertokens-auth-react/recipe/session';
 
 const Profile: NextPage = () => {
-  const userCtx = useContext(UserContext);
+  const session = useSessionContext();
+
+  if (session.loading === true) {
+    return null;
+  }
 
   const DUMMY_DATA = {
     name: 'John Smith',
     email: 'johnsmith@gmail.com',
     phone: '+44 7987654321',
-    roles: userCtx.roles,
+    roles: session.accessTokenPayload.roles,
+    user_id: session.userId,
   };
 
   return (

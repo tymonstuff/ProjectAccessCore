@@ -14,6 +14,7 @@ interface ProfileCardProps {
   email: string;
   phone: string;
   roles: (string | null)[];
+  user_id: string | null;
 }
 
 export default function ProfileCard({
@@ -21,6 +22,7 @@ export default function ProfileCard({
   email,
   phone,
   roles,
+  user_id,
 }: ProfileCardProps) {
   return (
     <>
@@ -145,6 +147,28 @@ export default function ProfileCard({
                   component="p"
                 >
                   {roles}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+              >
+                <Typography
+                  variant="body1"
+                  component="p"
+                >
+                  User ID:
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={9}
+              >
+                <Typography
+                  variant="body1"
+                  component="p"
+                >
+                  {user_id}
                 </Typography>
               </Grid>
             </Grid>

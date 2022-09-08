@@ -5,16 +5,12 @@ import Link from '../Link/Link';
 import Box from '../Box/Box';
 import Button from '../Button/Button';
 
-import { useContext, useState, useEffect } from 'react';
-import UserContext from '../../store/user-context';
-
 import { useSessionContext } from 'supertokens-auth-react/recipe/session';
 
 import {
   signOut,
   redirectToAuth,
 } from 'supertokens-auth-react/recipe/emailpassword';
-import { Co2Sharp } from '@mui/icons-material';
 
 export default function BasicAppBar() {
   async function handleLogOut() {
@@ -24,28 +20,22 @@ export default function BasicAppBar() {
 
   const session = useSessionContext();
 
-  // const userCtx = useContext(UserContext);
+  if (session.loading === true) {
+    return null;
+  }
 
-  // const [isMentee, setIsMentee] = useState(false);
-  // const [isMentor, setIsMentor] = useState(false);
-  console.log("AppBar RELOAD!")
-  console.log(JSON.stringify(session))
+  // console.log('AppBar RELOAD!');
+  // console.log(JSON.stringify(session));
 
-  //useEffect(() => {
-  // if (session.doesSessionExist && !session.loading) {
-  //   const permissions : string[] = session.accessTokenPayload.permissions;
-  //   setIsMentee(permissions.includes('MenteeView'));
-  //   setIsMentor(permissions.includes('MentorView'));
-  // }
-  //}, [/*isMentee, isMentor, */session]);
-  
-  const isLoggedIn = session.doesSessionExist
+  const isLoggedIn = session.doesSessionExist;
+
   let hasMenteeView;
   let hasMentorView;
+
   if (isLoggedIn && !session.loading) {
-    const permissions : string[] = session.accessTokenPayload.permissions;
-    hasMenteeView = permissions.includes('MenteeView')
-    hasMentorView = permissions.includes('MentorView')
+    const permissions: string[] = session.accessTokenPayload.permissions;
+    hasMenteeView = permissions.includes('MenteeView');
+    hasMentorView = permissions.includes('MentorView');
   }
 
   const MenteeButton = () => {
@@ -95,9 +85,6 @@ export default function BasicAppBar() {
     );
   };
 
-  // console.log(userCtx.roles);
-  // console.log(userCtx.permissions);
-
   return (
     <Box
       component="span"
@@ -105,14 +92,16 @@ export default function BasicAppBar() {
     >
       <AppBar position="static">
         <Toolbar>
-          {isLoggedIn ? <>
-            {hasMentorView ? <MentorButton /> : <></>}
-            {hasMenteeView ? <MenteeButton /> : <></>}
-            <ProfileButton />
-            <LogoutButton />
-          </> :
-          <></>
-        }
+          {isLoggedIn ? (
+            <>
+              {hasMentorView ? <MentorButton /> : <></>}
+              {hasMenteeView ? <MenteeButton /> : <></>}
+              <ProfileButton />
+              <LogoutButton />
+            </>
+          ) : (
+            <></>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
